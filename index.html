@@ -23,8 +23,17 @@
             font-weight: 700; /* Grosor de la fuente Kanit */
         }
         .logo {
-            width: 200px; /* Ajusta el tamaño del logo según necesites */
-            margin-bottom: 15px;
+            width: 100px; /* Ajusta el tamaño del logo según necesites */
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite; /* Animación de flotar */
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0); /* Posición inicial y final */
+            }
+            50% {
+                transform: translateY(-10px); /* Movimiento hacia arriba */
+            }
         }
         .button-container {
             display: flex;
@@ -50,12 +59,12 @@
         .whatsapp:hover {
             background-color: #128C7E; /* Color de WhatsApp al pasar el mouse */
         }
-.work {
-    background-color: #000000; /* Color negro */
-}
-.work:hover {
-    background-color: #333333; /* Color gris oscuro al pasar el mouse */
-}
+        .work {
+            background-color: #000000; /* Color negro */
+        }
+        .work:hover {
+            background-color: #333333; /* Color gris oscuro al pasar el mouse */
+        }
     </style>
 </head>
 <body>
