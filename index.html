@@ -50,36 +50,89 @@
             border-radius: 10px;
             background-color: #f8f8f8;
         }
+        .language-selector {
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
         <img src="file.jpg" alt="eSIMply Logo">
-        eSIMply - Conectá sin límites
+        <span id="header-text">eSIMply - Conectá sin límites</span>
     </header>
-    
+
+    <div class="language-selector">
+        <label for="language">🌎 Selecciona idioma:</label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+        </select>
+    </div>
+
     <div class="container">
-        <a href="https://wa.me/5491126870965" class="button">Comprar eSIM</a>
-        <a href="#faq" class="button">Preguntas Frecuentes</a>
-        <a href="#trabaja" class="button">Trabajá con Nosotros</a>
-       
+        <a href="https://wa.me/5491126870965" class="button" id="buy-btn">Comprar eSIM</a>
+        <a href="#faq" class="button" id="faq-btn">Preguntas Frecuentes</a>
+        <a href="#trabaja" class="button" id="work-btn">Trabajá con Nosotros</a>
     </div>
 
     <div id="faq" class="section">
-        <h2>Preguntas Frecuentes</h2>
-        <p><strong>¿Dónde funciona la eSIM?</strong><br>En toda Latinoamérica, sin importar el país donde estés.</p>
-        <p><strong>¿Cuándo se activa?</strong><br>La eSIM no se activa automáticamente. Vos decidís cuándo activarla.</p>
-        <p><strong>¿Cómo funciona la compra?</strong><br>Nos escribís por WhatsApp, elegís tu plan, hacés el pago y te enviamos tu eSIM con las instrucciones de activación (el proceso de activación demora menos de 1 minuto)</p>
-        <p><strong>¿Cuáles son las formas de pago?</strong><br>Aceptamos tarjeta de crédito, débito, PayPal y crypto.</p>
-        <p><strong>¿Cómo instalo la eSIM?</strong><br>Es muy fácil. Te enviamos un código QR que escaneás con tu celular y en segundos tenés tu línea activa.</p>
+        <h2 id="faq-title">Preguntas Frecuentes</h2>
+        <p><strong id="faq-1-q">¿Dónde funciona la eSIM?</strong><br><span id="faq-1-a">En toda Latinoamérica, sin importar el país donde estés.</span></p>
+        <p><strong id="faq-2-q">¿Cuándo se activa?</strong><br><span id="faq-2-a">La eSIM no se activa automáticamente. Vos decidís cuándo activarla.</span></p>
+        <p><strong id="faq-3-q">¿Cómo funciona la compra?</strong><br><span id="faq-3-a">Nos escribís por WhatsApp, elegís tu plan, hacés el pago y te enviamos tu eSIM con las instrucciones de activación (el proceso de activación demora menos de 1 minuto).</span></p>
+        <p><strong id="faq-4-q">¿Cuáles son las formas de pago?</strong><br><span id="faq-4-a">Aceptamos tarjeta de crédito, débito, PayPal y crypto.</span></p>
+        <p><strong id="faq-5-q">¿Cómo instalo la eSIM?</strong><br><span id="faq-5-a">Es muy fácil. Te enviamos un código QR que escaneás con tu celular y en segundos tenés tu línea activa.</span></p>
     </div>
 
-        <div id="trabaja" class="section">
-        <h2>Trabajá con Nosotros</h2>
-        <p>Sumate a nuestro programa de referidos y empezá a ganar dinero extra recomendando nuestras eSIMs. Si sos conductor de Uber, dueño de un hostel, Airbnb o trabajás en turismo, podés generar ingresos adicionales.</p>
-        <p>Cada socio recibe un código QR único. Podes ofrecerle el QR al turista (o también puede mandarnos tu código directamente en nuestro chat) y si concreta la compra de una eSIM, te llevás un % de la venta.</p>
-        <p>No solo pagamos la comisión de la primera venta, si el turista concreta varias compras te vamos a reconocer todas ellas.</p>
-        <p>Sin costos, sin complicaciones. Completá el siguiente formulario y empezá a generar ganancias! <a href="https://forms.gle/Ay8UyP3eorxcLcLk7">Formulario de Inscripción</a></p>
+    <div id="trabaja" class="section">
+        <h2 id="work-title">Trabajá con Nosotros</h2>
+        <p id="work-desc">Sumate a nuestro programa de referidos y empezá a ganar dinero extra recomendando nuestras eSIMs. Si sos conductor de Uber, dueño de un hostel, Airbnb o trabajás en turismo, podés generar ingresos adicionales.</p>
+        <p id="work-detail">Cada socio recibe un código QR único. Podes ofrecerle el QR al turista (o también puede mandarnos tu código directamente en nuestro chat) y si concreta la compra de una eSIM, te llevás un % de la venta.</p>
+        <p id="work-commission">No solo pagamos la comisión de la primera venta, si el turista concreta varias compras te vamos a reconocer todas ellas.</p>
+        <p id="work-cta">Sin costos, sin complicaciones. Completá el siguiente formulario y empezá a generar ganancias! <a href="https://forms.gle/Ay8UyP3eorxcLcLk7" id="form-link">Formulario de Inscripción</a></p>
     </div>
+
+    <script>
+        const translations = {
+            en: {
+                "header-text": "eSIMply - Connect without limits",
+                "buy-btn": "Buy eSIM",
+                "faq-btn": "Frequently Asked Questions",
+                "work-btn": "Work with Us",
+                "faq-title": "Frequently Asked Questions",
+                "faq-1-q": "Where does the eSIM work?",
+                "faq-1-a": "Throughout Latin America, regardless of the country you are in.",
+                "faq-2-q": "When does it activate?",
+                "faq-2-a": "The eSIM does not activate automatically. You decide when to activate it.",
+                "work-title": "Work with Us",
+                "work-desc": "Join our referral program and start earning extra money...",
+                "work-cta": "No costs, no complications. Fill out the form and start earning! <a href='https://forms.gle/Ay8UyP3eorxcLcLk7'>Registration Form</a>"
+            },
+            pt: {
+                "header-text": "eSIMply - Conecte-se sem limites",
+                "buy-btn": "Comprar eSIM",
+                "faq-btn": "Perguntas Frequentes",
+                "work-btn": "Trabalhe Conosco",
+                "faq-title": "Perguntas Frequentes",
+                "faq-1-q": "Onde a eSIM funciona?",
+                "faq-1-a": "Em toda a América Latina, independentemente do país onde você esteja.",
+                "faq-2-q": "Quando ela é ativada?",
+                "faq-2-a": "A eSIM não é ativada automaticamente. Você decide quando ativá-la.",
+                "work-title": "Trabalhe Conosco",
+                "work-desc": "Junte-se ao nosso programa de afiliados e comece a ganhar dinheiro extra...",
+                "work-cta": "Sem custos, sem complicações. Preencha o formulário e comece a ganhar! <a href='https://forms.gle/Ay8UyP3eorxcLcLk7'>Formulário de Inscrição</a>"
+            }
+        };
+
+        function changeLanguage() {
+            let lang = document.getElementById("language").value;
+            document.querySelectorAll("[id]").forEach(el => {
+                if (translations[lang][el.id]) {
+                    el.innerHTML = translations[lang][el.id];
+                }
+            });
+        }
+    </script>
 </body>
 </html>
