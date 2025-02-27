@@ -3,116 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESIMply</title>
-    <link rel="icon" href="file.jpg" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>eSIMply - Tu eSIM para Latinoamérica</title>
     <style>
-        /* Fondo con color rojo oscuro fijo */
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #8B0000;
-            color: #ffffff;
-            text-align: center;
-            padding: 40px 20px;
+            font-family: Arial, sans-serif;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 0;
+            text-align: center;
+            background-color: #fff;
+            color: #333;
         }
-
-        /* Contenedor con color rojo sólido */
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
         .container {
-            background: #d72323;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
+            padding: 20px;
         }
-
-        /* Logo con sombra más sutil */
-        .logo {
-            width: 160px;
-            margin-bottom: 5px;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Título elegante */
-        h1 {
-            font-family: 'Kanit', sans-serif;
-            font-size: 2.4em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* Contenedor de botones */
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        /* Estilos de los botones */
         .button {
             display: inline-block;
-            padding: 14px 0;
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #ffffff;
+            margin: 10px;
+            padding: 15px 25px;
+            background-color: #d32f2f;
+            color: white;
             text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.3s ease-in-out;
-            width: 100%;
-            text-align: center;
-            border: none;
+            font-size: 18px;
+            border-radius: 5px;
         }
-
-        /* Botón WhatsApp - Verde */
-        .whatsapp {
-            background: #25D366;
+        .button:hover {
+            background-color: #b71c1c;
         }
-
-        .whatsapp:hover {
-            background: #1EBE5F;
-        }
-
-        /* Botón Trabajá con nosotros - Negro */
-        .work {
-            background: #000000;
-        }
-
-        .work:hover {
-            background: #333333;
-        }
-
-        /* Botón Preguntas Frecuentes - Azul */
-        .faq {
-            background: #007BFF;
-        }
-
-        .faq:hover {
-            background: #0056b3;
+        .section {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f8f8;
         }
     </style>
 </head>
 <body>
+    <header>eSIMply - Conectate Fácilmente</header>
+    
     <div class="container">
-        <img src="file.jpg" alt="ESIMply Logo" class="logo">
-        <h1>ESIMply.lat</h1>
-        <div class="button-container">
-            <a href="https://wa.me/5491126870965" class="button whatsapp">Quiero comprar una eSIM</a>
-            <a href="https://esimply.lat/faq" class="button faq">Preguntas frecuentes</a>
-            <a href="https://esimply.lat/work" class="button work">Trabajá con nosotros</a>
-        </div>
+        <a href="https://wa.me/5491126870965" class="button">Comprar eSIM</a>
+        <a href="#trabaja" class="button">Trabajá con Nosotros</a>
+        <a href="#faq" class="button">Preguntas Frecuentes</a>
+    </div>
+
+    <div id="trabaja" class="section">
+        <h2>Trabajá con Nosotros</h2>
+        <p>Sumate a nuestro programa de referidos y empezá a ganar dinero extra recomendando nuestras eSIMs. Si sos conductor de Uber, dueño de un hostel, Airbnb o trabajás en turismo, podés generar ingresos adicionales.</p>
+        <p>Cada socio recibe un código QR único. Cuando un turista compra una eSIM usando tu código, te llevás el 50% de la ganancia.</p>
+        <p>Sin costos, sin complicaciones. Contactanos para empezar a generar ingresos hoy mismo.</p>
+    </div>
+
+    <div id="faq" class="section">
+        <h2>Preguntas Frecuentes</h2>
+        <p><strong>¿Dónde funciona la eSIM?</strong><br>En toda Latinoamérica, sin importar el país donde estés.</p>
+        <p><strong>¿Cuándo se activa?</strong><br>La eSIM no se activa automáticamente. Vos decidís cuándo activarla.</p>
+        <p><strong>¿Cómo funciona la compra?</strong><br>Nos escribís por WhatsApp, elegís tu plan, hacés el pago y te enviamos tu eSIM con instrucciones de instalación.</p>
+        <p><strong>¿Cuáles son las formas de pago?</strong><br>Aceptamos tarjeta de crédito, débito, PayPal y criptomonedas como Ethereum.</p>
+        <p><strong>¿Cómo instalo la eSIM?</strong><br>Es muy fácil. Te enviamos un código QR que escaneás con tu celular y en segundos tenés tu línea activa.</p>
     </div>
 </body>
 </html>
