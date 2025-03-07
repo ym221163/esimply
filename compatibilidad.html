@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="file.png">
+    <title>eSIMply - Tu eSIM para Latinoamérica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #fff;
+            color: #333;
+        }
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            background-color: #d32f2f;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #b71c1c;
+        }
+        .section {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+        }
+        .language-selector {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="file.jpg" alt="eSIMply Logo">
+        <span id="header-text">eSIMply - Conectá sin límites</span>
+    </header>
+
+    <div class="container">
+        <a href="https://wa.me/5491126870965" class="button" id="buy-btn">Comprar eSIM</a>
+        <a href="#faq" class="button" id="faq-btn">Preguntas Frecuentes</a>
+        <a href="#referidos" class="button" id="work-btn">Trabajá con Nosotros</a>
+    </div>
+
+    <div class="language-selector" id="faq">
+        <label for="language">🌎 Selecciona idioma:</label>
+        <select id="language" onchange="changeLanguage()">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+        </select>
+    </div>
+
+    <div id="faq" class="section">
+        <h2 id="faq-title">Celulares compatibles con eSIM | Marzo 2025</h2>
+        <p><strong>Antes de verificar la lista de móviles compatibles con eSIM, ten en cuenta lo siguiente:</strong></p>
+        <ul style="text-align: left; max-width: 600px; margin: auto;">
+            <li>Tener un móvil compatible con eSIM.</li>
+            <li>Comprobar que el móvil esté desbloqueado por el operador.</li>
+            <li>Contar con un plan de servicios eSIM y un método de activación.</li>
+            <li>Actualizar el sistema operativo a la última versión disponible.</li>
+        </ul>
+
+        <h3>iPhone con eSIM</h3>
+        <ul style="text-align: left; max-width: 600px; margin: auto;">
+            <li>iPhone XR</li>
+            <li>iPhone XS / XS Max</li>
+            <li>iPhone 11 / 11 Pro / 11 Pro Max</li>
+            <li>iPhone SE 2 (2020)</li>
+            <li>iPhone 12 / 12 Mini / 12 Pro / 12 Pro Max</li>
+            <li>iPhone 13 / 13 Mini / 13 Pro / 13 Pro Max</li>
+            <li>iPhone SE 3 (2022)</li>
+            <li>iPhone 14 / 14 Plus / 14 Pro / 14 Pro Max</li>
+            <li>iPhone 15 / 15 Plus / 15 Pro / 15 Pro Max</li>
+            <li>iPhone 16 / 16 Plus / 16 Pro / 16 Pro Max</li>
+            <li>iPhone 16e (próximamente)</li>
+        </ul>
+
+        <h4>Notas sobre iPhone:</h4>
+        <ul style="text-align: left; max-width: 600px; margin: auto;">
+            <li>En los modelos de iPhone 13 y iPhone 14, puedes tener dos eSIM activas al mismo tiempo.</li>
+            <li>Los modelos comercializados en China, Hong Kong y Macao (excepto iPhone 13 mini, iPhone 12 mini, iPhone SE 2020 y iPhone XS) no son compatibles con eSIM.</li>
+            <li>El iPhone 14 y posteriores vendidos en EE.UU. solo admiten eSIM y no tienen ranura para SIM física.</li>
+        </ul>
+    </div>
+</body>
+</html>
