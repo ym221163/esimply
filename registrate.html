@@ -92,7 +92,40 @@
             list-style: none;
             padding: 0;
         }
+        .input-field {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
 
+    .input-field:focus {
+        border-color: #d32f2f;
+        outline: none;
+        box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+    }
+
+    .register-button {
+        background-color: #d32f2f;
+        color: white;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 8px;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .register-button:hover {
+        background-color: #b71c1c;
+    }
     </style>
 </head>
 <body>
@@ -127,12 +160,16 @@
                     <li>✅ 10% de comisión por cada venta.</li>
                     <li>✅ Pago de comisiones en pesos argentinos vía MercadoPago (dólar blue).</li>
                 </ul>
-                
-                <form action="https://script.google.com/macros/s/AKfycbzmoMnd0aaMWL4lb94EvbguQ7YSrZfFHsqZuo0WTGR3B7Y3egQECARgD_XantB_4HSiuQ/exec" method="post" style="margin-top: 15px;">
-                    <input type="text" name="nombre" placeholder="Tu nombre" required style="display: block; width: 100%; padding: 8px; margin-bottom: 10px;">
-                    <input type="email" name="email" placeholder="Tu email" required style="display: block; width: 100%; padding: 8px; margin-bottom: 10px;">
-                    <button type="submit" style="background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; width: 100%; font-size: 16px;">Registrarme Gratis</button>
+            
+                <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzmoMnd0aaMWL4lb94EvbguQ7YSrZfFHsqZuo0WTGR3B7Y3egQECARgD_XantB_4HSiuQ/exec" method="post">
+                    <input type="text" name="nombre" placeholder="Tu nombre" required class="input-field">
+                    <input type="email" name="email" placeholder="Tu email" required class="input-field">
+                    <button type="submit" class="register-button">Registrarme Gratis</button>
                 </form>
+            
+                <p id="mensajeConfirmacion" style="display: none; color: green; font-weight: bold; margin-top: 10px;">
+                    ✅ Registro completado, vas a recibir tus QR a la brevedad!
+                </p>
             </div>
         
         <div class="plan">
@@ -150,4 +187,24 @@
         <a href="https://mpago.la/1ir84Xs" target="_blank" class="buy-button">💳 Obtener Acceso Total vía MercadoPago</a>
 </div>
 </body>
+    <script>
+    document.getElementById("registroForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita que la página se recargue
+
+        // Captura el formulario
+        var form = event.target;
+        
+        // Envía los datos usando Fetch API
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form)
+        }).then(response => {
+            if (response.ok) {
+                // Muestra el mensaje de confirmación
+                document.getElementById("mensajeConfirmacion").style.display = "block";
+                form.reset(); // Limpia el formulario
+            }
+        }).catch(error => console.error("Error:", error));
+    });
+</script>
 </html>
