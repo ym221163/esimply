@@ -5,145 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="file.png">
     <title>eSIMply - Tu eSIM para Latinoamérica</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            background-color: #fff;
-            color: #333;
-        }
-        header {
-            background-color: #d32f2f;
-            color: white;
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        header img {
-            height: 50px;
-            margin-right: 15px;
-        }
-        .container {
-            padding: 20px;
-        }
-        .button {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 25px;
-            background-color: #d32f2f;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-        }
-        .button:hover {
-            background-color: #b71c1c;
-        }
-        .section {
-            margin: 40px auto;
-            max-width: 800px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #f8f8f8;
-        }
-        .language-selector {
-            margin: 20px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <img src="file.jpg" alt="eSIMply Logo">
-        <span id="header-text">eSIMply - Conectá sin límites</span>
+<body class="bg-white font-sans">
+    <header class="bg-gradient-to-r from-red-500 to-red-700 text-white p-6 flex items-center justify-center shadow-md">
+        <img src="file.png" class="h-12 mr-3" alt="Logo">
+        <h1 class="text-2xl font-semibold" id="header-text">eSIMply - Conectá sin límites</h1>
     </header>
-    
 
-    <div class="container">
-        <a href="https://wa.me/5491126870965" class="button" id="buy-btn">Comprar eSIM</a>
-        <a href="#faq" class="button" id="faq-btn">Preguntas Frecuentes</a>
-        <a href="#referidos" class="button" id="work-btn">Trabajá con Nosotros</a>
-         <a href="https://esimply.lat/compatibilidad" class="button" id="work-btn">Modelos Compatibles</a>
+    <div class="container mx-auto my-10 px-4">
+        <div class="text-center mb-10">
+            <a href="https://wa.me/5491126870965" class="bg-red-600 hover:bg-red-800 text-white font-bold py-3 px-6 rounded transition duration-300 shadow-md inline-block" id="buy-btn">
+                Comprar eSIM
+            </a>
+            <a href="#faq" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded transition duration-300 shadow-md ml-2 inline-block" id="faq-btn">
+                Preguntas Frecuentes
+            </a>
+            <a href="#compatibles" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded transition duration-300 shadow-md inline-block ml-2" id="models-btn">
+                Modelos Compatibles
+            </a>
+        </div>
+
+    <div class="flex flex-col md:flex-row items-center max-w-4xl mx-auto gap-8 mt-10 mb-16">
+        <video src="demo.mp4" autoplay loop muted class="rounded-xl shadow-lg md:w-1/2 w-full"></video>
+        <div class="mt-6 md:mt-0 md:w-1/2 md:pl-8">
+            <h2 class="text-2xl font-bold mb-4">Activá tu eSIM en 3 pasos:</h2>
+            <ul class="space-y-3 text-lg">
+                <li><span class="font-bold">1.</span> Seleccioná tu plan favorito 🌎</li>
+                <li><span class="font-bold">2.</span> Pagá rápido y seguro vía WhatsApp.</li>
+                <li><span class="font-bold">3.</span> Activá tu eSIM en segundos con un código QR.</li>
+            </ul>
+        </div>
     </div>
 
-        <div class="language-selector" id="faq">
-        <label for="language">🌎 Selecciona idioma:</label>
-        <select id="language" onchange="changeLanguage()">
-            <option value="es">Español</option>
-            <option value="en">English</option>
-            <option value="pt">Português</option>
-        </select>
+    <div class="max-w-3xl mx-auto my-10 p-6 bg-gray-50 rounded-lg shadow-md" id="faq">
+        <div class="mb-4">
+            <label for="language" class="font-semibold">🌎 Seleccioná idioma:</label>
+            <select id="language" class="border rounded p-2 ml-2" onchange="changeLanguage()">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+            </select>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-4" id="faq-title">Preguntas Frecuentes</h3>
+
+        <div class="space-y-4">
+            <div><strong id="faq-1-q">¿Dónde funciona la eSIM?</strong><p id="faq-1-a">En toda Latinoamérica, sin importar el país donde estés.</p></div>
+            <div><strong id="faq-2-q">¿Cuándo se activa?</strong><br><span id="faq-2-a">En segundos después de escanear el QR.</span></div>
+            <div><strong id="faq-3-q">¿Cómo comprar?</strong><br><span id="faq-3-a">Nos escribís por WhatsApp, elegís tu plan y recibís instrucciones.</span></div>
+            <div><strong id="faq-4-q">¿Formas de pago?</strong><br><span id="faq-4-a">PayPal, Apple Pay, tarjetas y más.</span></div>
     </div>
 
-    <div id="faq" class="section">
-        <h2 id="faq-title">Preguntas Frecuentes</h2>
-        <p><strong id="faq-1-q">¿Dónde funciona la eSIM?</strong><br><span id="faq-1-a">En toda Latinoamérica, sin importar el país donde estés.</span></p>
-        <p><strong id="faq-2-q">¿Cuándo se activa?</strong><br><span id="faq-2-a">La eSIM no se activa automáticamente, vos decidís cuándo activarla, podes comprarla antes de salir de viaje y activarla en el destino.</span></p>
-        <p><strong id="faq-3-q">¿Cómo funciona la compra?</strong><br><span id="faq-3-a">Nos escribís por WhatsApp, elegís tu plan, hacés el pago y te enviamos tu eSIM con las instrucciones de activación.</span></p>
-        <p><strong id="faq-4-q">¿Cuáles son las formas de pago?</strong><br><span id="faq-4-a">Aceptamos tarjeta de crédito, débito, PayPal y Apple Pay</span></p>
-        <p><strong id="faq-5-q">¿Cómo instalo la eSIM?</strong><br><span id="faq-5-a">Te enviamos un código QR que escaneás con tu celular y en segundos tenés tu línea activa. Si no podes escanear no te preocupes, te enviaremos tambien el link de activacion.</span></p>
-        <p><strong id="faq-6-q">¿Puedo devolver la eSIM?</strong><br><span id="faq-5-a">Podes devolver la eSIM si no la activaste dentro de los primeros 30 días de compra!</span></p>
-    </div>
-
-    <div id="referidos" class="section">
-        <h2 id="work-title">Trabajá con Nosotros</h2>
+    <div class="max-w-3xl mx-auto my-10 p-6 bg-gray-50 rounded-lg shadow-md" id="work">
+        <h3 class="text-xl font-semibold mb-4" id="work-title">Trabajá con Nosotros</h3>
         <p id="work-desc">Sumate a nuestro programa de referidos y empezá a ganar dinero extra recomendando nuestras eSIMs.</p>
-        <p id="work-detail">Cada socio recibe un código QR único. Si un turista usa tu QR para comprar, ganas una comisión.</p>
-        <p id="work-commission">No solo pagamos la comisión de la primera venta, sino también de futuras compras del cliente.</p>
-        <p id="work-cta">Solicitá tu QR <a href="https://www.instagram.com/esimply_lat" id="form-link">Mandanos un DM para recibir tu QR!</a></p>
+        <p class="mt-4"><a href="https://instagram.com/esimply_lat" class="text-red-600 hover:underline">Mandanos un DM para recibir tu QR!</a></p>
     </div>
-    <div>
-    </div>
+
     <script>
         const translations = {
+            es: {
+                "header-text": "eSIMply - Conectá sin límites",
+                "buy-btn": "Comprar eSIM",
+                "faq-title": "Preguntas Frecuentes",
+                "work-title": "Trabajá con Nosotros"
+            },
             en: {
                 "header-text": "eSIMply - Connect without limits",
                 "buy-btn": "Buy eSIM",
-                "faq-btn": "Frequently Asked Questions",
-                "work-btn": "Work with Us",
                 "faq-title": "Frequently Asked Questions",
-                "faq-1-q": "Where does the eSIM work?",
-                "faq-1-a": "Throughout Latin America, regardless of your location.",
-                "faq-2-q": "When does it activate?",
-                "faq-2-a": "The eSIM does not activate automatically. You decide when to activate it. You can buy it before your trip and activate it at your destination.",
-                "faq-3-q": "How does the purchase work?",
-                "faq-3-a": "You contact us via WhatsApp, choose your plan, pay, and we send your eSIM with activation instructions.",
-                "faq-4-q": "What payment methods are accepted?",
-                "faq-4-a": "We accept credit cards, debit cards, PayPal, and Apple Pay.",
-                "faq-5-q": "How do I install the eSIM?",
-                "faq-5-a": "We send you a QR code that you scan with your phone, and in seconds, your line is active. If you can't scan it, don't worry; we will also send you the activation link.",
-                "faq-6-q": "Can I return the eSIM?",
-                "faq-6-a": "You can return the eSIM if you haven't activated it within the first 30 days of purchase!",
-                "work-title": "Work with Us",
-                "work-desc": "Join our referral program and earn extra money recommending our eSIMs.",
-                "work-detail": "Each partner receives a unique QR code. If a tourist buys using your QR, you earn a commission.",
-                "work-commission": "We pay not only for the first sale but also for future purchases by the same client.",
-                "work-cta": "No costs, no complications. <a href='https://forms.gle/Ay8UyP3eorxcLcLk7'>Sign Up Form</a>"
+                "work-title": "Work with Us"
             },
             pt: {
                 "header-text": "eSIMply - Conecte-se sem limites",
                 "buy-btn": "Comprar eSIM",
-                "faq-btn": "Perguntas Frequentes",
-                "work-btn": "Trabalhe Conosco",
                 "faq-title": "Perguntas Frequentes",
-                "faq-1-q": "Onde a eSIM funciona?",
-                "faq-1-a": "Em toda a América Latina, independentemente do país onde você esteja.",
-                "faq-2-q": "Quando ela é ativada?",
-                "faq-2-a": "O eSIM não é ativado automaticamente. Você decide quando ativá-lo. Você pode comprá-lo antes da viagem e ativá-lo no destino.",
-                "faq-3-q": "Como funciona a compra?",
-                "faq-3-a": "Você nos contata pelo WhatsApp, escolhe seu plano, paga e enviamos sua eSIM com instruções de ativação.",
-                "faq-4-q": "Quais são as formas de pagamento aceitas?",
-                "faq-4-a": "Aceitamos cartões de crédito, débito, PayPal e Apple Pay.",
-                "faq-5-q": "Como instalo a eSIM?",
-                "faq-5-a": "Enviamos um código QR que você escaneia com seu celular e, em segundos, sua linha está ativa. Se não puder escanear, não se preocupe; também enviaremos o link de ativação.",
-                "faq-6-q": "Posso devolver o eSIM?",
-                "faq-6-a": "Você pode devolver o eSIM se não tiver ativado dentro dos primeiros 30 dias da compra!",
-                "work-title": "Trabalhe Conosco",
-                "work-desc": "Junte-se ao nosso programa de indicação e ganhe dinheiro extra recomendando nossas eSIMs."
+                "work-title": "Trabalhe Conosco"
             }
         };
 
@@ -154,5 +93,8 @@
             }
         }
     </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
