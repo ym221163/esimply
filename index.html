@@ -9,20 +9,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white font-sans">
-    <header class="bg-gradient-to-r from-red-500 to-red-700 text-white p-6 flex items-center justify-center shadow-md">
+    <header class="bg-[#d62324] text-white p-4 flex items-center justify-center shadow-md">
         <img src="file.png" class="h-12 mr-3" alt="Logo">
         <h1 class="text-2xl font-semibold" id="header-text">eSimply - Conectá sin límites</h1>
     </header>
 
-    <div class="flex flex-col md:flex-row items-center max-w-4xl mx-auto gap-8 mt-10 mb-16">
-        <video src="test.mp4" autoplay loop muted class="rounded-xl md:w-1/2 w-full"></video>
-        <div class="mt-6 md:mt-0 md:w-1/2 md:pl-8">
-            <h2 class="text-2xl font-bold mb-4">Activá tu eSIM en 3 pasos:</h2>
-            <ul class="space-y-3 text-lg">
-                <li><span class="font-bold">1.</span> Seleccioná tu plan favorito 🌎</li>
-                <li><span class="font-bold">2.</span> Pagá rápido y seguro vía WhatsApp.</li>
-                <li><span class="font-bold">3.</span> Activá tu eSIM en segundos con un código QR.</li>
+    <div class="flex flex-col md:flex-row items-center max-w-4xl mx-auto gap-8 mt-6 mb-8">
+        <video src="test.mp4" autoplay loop muted playsinline class="rounded-xl shadow-md md:w-1/2 w-full"></video>
+        <div class="md:w-1/2 md:pl-6">
+            <h2 class="text-2xl font-bold mb-4">Tu eSIM lista en 3 pasos:</h2>
+            <ul class="space-y-2 text-lg">
+                <li><span class="font-bold">1.</span> Elegí cuántos días necesitas conexión 🌎</li>
+                <li><span class="font-bold">2.</span> Realizá tu compra fácil y seguro por WhatsApp 💬</li>
+                <li><span class="font-bold">3.</span> Activá tu eSIM escaneando un código QR en segundos 📲</li>
             </ul>
+            <a href="https://wa.me/5491126870965" class="mt-6 inline-block bg-[#d62324] hover:bg-[#b71c1c] text-white font-semibold py-3 px-5 rounded transition duration-300 shadow-md">
+                Comprar eSIM
+            </a>
         </div>
     </div>
 
@@ -55,8 +58,5 @@
             }
         }
     </script>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
