@@ -113,133 +113,139 @@
     </section>
   </main>
   
-  <script>
-    // Función para generar un código aleatorio de 9 caracteres
-    function generarCodigoAleatorio() {
-      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let codigo = '';
-      for (let i = 0; i < 9; i++) {
-        codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-      }
-      return codigo;
+<script>
+  // Función para generar un código aleatorio de 9 caracteres
+  function generarCodigoAleatorio() {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let codigo = '';
+    for (let i = 0; i < 9; i++) {
+      codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
-    
-    const radios = document.getElementsByName("tipo_codigo");
-    const codigoPersonalizadoDiv = document.getElementById("codigoPersonalizadoDiv");
-    const previewLink = document.getElementById("previewLink");
-    const costInfo = document.getElementById("costInfo");
-    const baseURL = "https://www.esimplyglobal.com/";
-    const customInput = document.querySelector('input[name="codigo_personalizado"]');
-    const submitButton = document.getElementById("submitButton");
-    const availabilityMessage = document.getElementById("availabilityMessage");
-    
-    // Función para verificar la disponibilidad del código personalizado
-    function checkCodeAvailability() {
-      const code = customInput.value.trim();
-      if (!code) {
-        availabilityMessage.textContent = "";
-        return;
-      }
-      // Construye la URL para la petición GET (asegúrate de que tu Apps Script responda a esta acción)
-      const url = "https://script.google.com/macros/s/AKfycbyOSumV5hGQk_9Z88o1-sjgF_F71v8pFSZr96eiqKp53BiemMorWyW_Ub20xELzsuc-zg/exec?action=check&codigo=" + encodeURIComponent(code);
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.disponible) {
-            availabilityMessage.textContent = "Código disponible";
-            availabilityMessage.classList.remove("text-red-600");
-            availabilityMessage.classList.add("text-green-600");
-          } else {
-            availabilityMessage.textContent = "Código no disponible";
-            availabilityMessage.classList.remove("text-green-600");
-            availabilityMessage.classList.add("text-red-600");
-          }
-        })
-        .catch(error => {
-          console.error("Error verificando disponibilidad:", error);
-          availabilityMessage.textContent = "";
-        });
+    return codigo;
+  }
+
+  const radios = document.getElementsByName("tipo_codigo");
+  const codigoPersonalizadoDiv = document.getElementById("codigoPersonalizadoDiv");
+  const previewLink = document.getElementById("previewLink");
+  const costInfo = document.getElementById("costInfo");
+  const baseURL = "https://www.esimplyglobal.com/";
+  const customInput = document.querySelector('input[name="codigo_personalizado"]');
+  const submitButton = document.getElementById("submitButton");
+  const availabilityMessage = document.getElementById("availabilityMessage");
+
+  // Función para verificar la disponibilidad del código personalizado y retornar una Promesa
+  function checkCodeAvailability() {
+    const code = customInput.value.trim();
+    if (!code) {
+      availabilityMessage.textContent = "";
+      return Promise.resolve({ disponible: false });
     }
-    
-    // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
-    function actualizarPreview() {
-      const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
-      if (selectedTipo) {
-        if (selectedTipo.value === "gratuito") {
-          const codigoAleatorio = generarCodigoAleatorio();
-          previewLink.textContent = baseURL + codigoAleatorio;
-          costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-          submitButton.textContent = "Regístrate sin costo";
-        } else if (selectedTipo.value === "personalizado") {
-          const valor = customInput.value.trim();
-          previewLink.textContent = baseURL + (valor || "[tu_codigo]");
-          costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-          submitButton.textContent = "Regístrate y pagá $5000 ARS";
-          // Llama a la función de verificación cuando haya texto
-          if(valor) {
-            checkCodeAvailability();
-          } else {
-            availabilityMessage.textContent = "";
-          }
-        }
-      }
-    }
-    
-    radios.forEach(radio => {
-      radio.addEventListener("change", function() {
-        if (this.value === "personalizado") {
-          codigoPersonalizadoDiv.classList.remove("hidden");
+    const url = "https://script.google.com/macros/s/AKfycbzM1jyykVbj8k-tKV1Q7V3fgneGj_r_oUPc0e-DJF2P_dGvCK3uf70EMkusi5eNG6KV9w/exec?action=check&codigo=" + encodeURIComponent(code);
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.disponible) {
+          availabilityMessage.textContent = "Código disponible";
+          availabilityMessage.classList.remove("text-red-600");
+          availabilityMessage.classList.add("text-green-600");
         } else {
-          codigoPersonalizadoDiv.classList.add("hidden");
+          availabilityMessage.textContent = "Código no disponible";
+          availabilityMessage.classList.remove("text-green-600");
+          availabilityMessage.classList.add("text-red-600");
         }
-        actualizarPreview();
-      });
-    });
-    
-    if(customInput) {
-      customInput.addEventListener("input", function() {
-        actualizarPreview();
-        // Opcional: usar debounce para no hacer demasiadas peticiones
-        clearTimeout(this.debounceTimeout);
-        this.debounceTimeout = setTimeout(checkCodeAvailability, 500);
-      });
-    }
-    
-    document.getElementById("registroForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      
-      const form = event.target;
-      const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
-      
-      if (selectedTipo === "gratuito") {
-        const codigoAleatorio = generarCodigoAleatorio();
-        document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
-      } else if (selectedTipo === "personalizado") {
-        const codigoPersonalizado = form.codigo_personalizado.value.trim();
-        document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
-      }
-      
-      // Envía los datos a Google Sheets vía Fetch
-      fetch(form.action, {
-        method: form.method,
-        body: new FormData(form)
-      })
-      .then(response => {
-        if (response.ok) {
-          if (selectedTipo === "personalizado") {
-            window.location.href = "https://mpago.la/1mpya7W";
-          } else {
-            alert("Registro completado. Tu link de afiliado es: " + document.getElementById("link_afiliado").value);
-          }
-        } else {
-          alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
-        }
+        return data;
       })
       .catch(error => {
-        console.error("Error:", error);
-        alert("Error al enviar el formulario.");
+        console.error("Error verificando disponibilidad:", error);
+        availabilityMessage.textContent = "";
+        return { disponible: false };
       });
+  }
+
+  // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
+  function actualizarPreview() {
+    const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
+    if (selectedTipo) {
+      if (selectedTipo.value === "gratuito") {
+        const codigoAleatorio = generarCodigoAleatorio();
+        previewLink.textContent = baseURL + codigoAleatorio;
+        costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
+        submitButton.textContent = "Regístrate sin costo";
+      } else if (selectedTipo.value === "personalizado") {
+        const valor = customInput.value.trim();
+        previewLink.textContent = baseURL + (valor || "[tu_codigo]");
+        costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
+        submitButton.textContent = "Regístrate y pagá $5000 ARS";
+        // Si hay texto, verifica disponibilidad
+        if (valor) {
+          checkCodeAvailability();
+        } else {
+          availabilityMessage.textContent = "";
+        }
+      }
+    }
+  }
+
+  radios.forEach(radio => {
+    radio.addEventListener("change", function() {
+      if (this.value === "personalizado") {
+        codigoPersonalizadoDiv.classList.remove("hidden");
+      } else {
+        codigoPersonalizadoDiv.classList.add("hidden");
+      }
+      actualizarPreview();
     });
-  </script>
+  });
+
+  if(customInput) {
+    customInput.addEventListener("input", function() {
+      actualizarPreview();
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = setTimeout(checkCodeAvailability, 500);
+    });
+  }
+
+  // Manejo del envío del formulario de manera asíncrona
+  document.getElementById("registroForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
+
+    if (selectedTipo === "personalizado") {
+      // Verificar disponibilidad antes de enviar
+      const result = await checkCodeAvailability();
+      if (!result.disponible) {
+        alert("El código ya existe. Por favor, elige otro código personalizado.");
+        return; // Evita el envío
+      }
+      const codigoPersonalizado = form.codigo_personalizado.value.trim();
+      document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
+    } else if (selectedTipo === "gratuito") {
+      const codigoAleatorio = generarCodigoAleatorio();
+      document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
+    }
+
+    // Envía los datos a Google Sheets vía Fetch
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form)
+    })
+    .then(response => {
+      if (response.ok) {
+        if (selectedTipo === "personalizado") {
+          window.location.href = "https://mpago.la/1mpya7W";
+        } else {
+          alert("Registro completado. Tu link de afiliado es: " + document.getElementById("link_afiliado").value);
+        }
+      } else {
+        alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("Error al enviar el formulario.");
+    });
+  });
+</script>
 </body>
 </html>
