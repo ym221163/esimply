@@ -29,13 +29,15 @@
         <div class="flex items-center space-x-4">
           <label class="flex items-center space-x-2">
             <input type="radio" name="tipo_codigo" value="gratuito" required class="form-radio">
-            <span>Código de afiliado gratuito</span>
+            <span>Código gratuito</span>
           </label>
           <label class="flex items-center space-x-2">
             <input type="radio" name="tipo_codigo" value="personalizado" class="form-radio">
-            <span>Código de afiliado personalizado</span>
+            <span>Código personalizado</span>
           </label>
         </div>
+        <!-- Mensaje dinámico para indicar el costo -->
+        <div id="costInfo" class="mt-2 text-sm text-gray-600"></div>
       </div>
       
       <!-- Campo adicional para código personalizado -->
@@ -56,6 +58,25 @@
         Enviar Registro
       </button>
     </form>
+    
+    <!-- Sección informativa adicional -->
+    <section class="mt-8 bg-gray-50 p-4 rounded shadow">
+      <h3 class="text-lg font-bold mb-2">¿Cómo funciona?</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-1">
+        <li>Tu link de afiliado redireccionará a nuestro bot de WhatsApp que gestiona las ventas de la eSIM.</li>
+        <li>El huésped que use tu código obtendrá un <span class="font-semibold">5% de descuento</span> en su primera compra.</li>
+        <li>Todas las compras que realice el huésped con tu código te generarán un ingreso.</li>
+        <li>Cada 15 días recibirás un resumen de tus ventas y los comprobantes de pago.</li>
+        <li>Pagamos vía MercadoPago al valor del dólar blue.</li>
+        <li>Las eSIM tienen cobertura en toda Latinoamérica.</li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-600">
+        <span class="font-semibold">Nota:</span> El código de afiliado gratuito se genera automáticamente sin costo, mientras que el código personalizado tiene un costo único de <span class="font-bold">$5000 ARS</span>.
+      </p>
+      <p class="mt-2 text-sm text-gray-600">
+        Consulta nuestra <a href="https://docs.google.com/spreadsheets/d/1gsUQU-RGKrVNIVFPJB3ZFqVpzLDFaondFOpQ1HJ6evE/edit?usp=sharing" target="_blank" class="underline text-blue-600">lista de comisiones</a> para más detalles.
+      </p>
+    </section>
   </main>
   
   <script>
@@ -72,6 +93,7 @@
     const radios = document.getElementsByName("tipo_codigo");
     const codigoPersonalizadoDiv = document.getElementById("codigoPersonalizadoDiv");
     const previewLink = document.getElementById("previewLink");
+    const costInfo = document.getElementById("costInfo");
     const baseURL = "https://www.esimplyglobal.com/";
     const customInput = document.querySelector('input[name="codigo_personalizado"]');
     
@@ -83,10 +105,12 @@
           // Genera un código aleatorio y lo muestra
           const codigoAleatorio = generarCodigoAleatorio();
           previewLink.textContent = baseURL + codigoAleatorio;
+          costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
         } else if (selectedTipo.value === "personalizado") {
           // Muestra el link con el código ingresado o un placeholder
           const valor = customInput.value.trim();
           previewLink.textContent = baseURL + (valor || "[tu_codigo]");
+          costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
         }
       }
     }
@@ -133,7 +157,7 @@
       .then(response => {
         if (response.ok) {
           if (selectedTipo === "personalizado") {
-            // Redirige al link de pago si eligió código personalizado
+            // Redirige al link de pago si se eligió código personalizado
             window.location.href = "https://mpago.la/1mpya7W";
           } else {
             // Muestra una alerta con el link generado para opción gratuita
