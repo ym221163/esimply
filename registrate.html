@@ -56,23 +56,23 @@
       
       <!-- Botón de envío dinámico -->
       <button id="submitButton" type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
-        Enviar Registro
+        Envíar Registro
       </button>
     </form>
     
-    <!-- Sección informativa adicional -->
-    <section class="mt-8 bg-gray-50 p-4 rounded shadow">
-      <h3 class="text-lg font-bold mb-2">¿Cómo funciona?</h3>
-      <ul class="list-disc list-inside text-gray-700 space-y-1">
+    <!-- Sección informativa "¿Cómo funciona?" -->
+    <section class="mt-8 bg-gray-50 p-6 rounded shadow">
+      <h3 class="text-lg font-bold mb-4">¿Cómo funciona?</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
         <li>Tu link de afiliado redireccionará a nuestro bot de WhatsApp que gestiona las ventas de la eSIM.</li>
-        <li>El huésped que use tu código obtendrá un <span class="font-semibold">5% de descuento</span> en su primera compra.</li>
+        <li>El huésped que use tu código obtendrá un <span class="font-bold">5% de descuento</span> en su primera compra.</li>
         <li>Todas las compras que realice el huésped con tu código te generarán un ingreso.</li>
         <li>Cada 15 días recibirás un resumen de tus ventas y los comprobantes de pago.</li>
         <li>Pagamos vía MercadoPago al valor del dólar blue.</li>
         <li>Las eSIM tienen cobertura en toda Latinoamérica.</li>
       </ul>
       <p class="mt-4 text-sm text-gray-600">
-        <span class="font-semibold">Nota:</span> El código de afiliado gratuito se genera automáticamente sin costo, mientras que el código personalizado tiene un costo único de <span class="font-bold">$5000 ARS</span>.
+        <strong>Nota:</strong> El código de afiliado gratuito se genera automáticamente sin costo, mientras que el código personalizado tiene un costo único de <span class="font-bold">$5000 ARS</span>.
       </p>
       <p class="mt-2 text-sm text-gray-600">
         Consulta nuestra <a href="https://docs.google.com/spreadsheets/d/1gsUQU-RGKrVNIVFPJB3ZFqVpzLDFaondFOpQ1HJ6evE/edit?usp=sharing" target="_blank" class="underline text-blue-600">lista de comisiones</a> para más detalles.
@@ -107,12 +107,12 @@
           const codigoAleatorio = generarCodigoAleatorio();
           previewLink.textContent = baseURL + codigoAleatorio;
           costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-          submitButton.textContent = "Registrate";
+          submitButton.textContent = "Regístrate";
         } else if (selectedTipo.value === "personalizado") {
           const valor = customInput.value.trim();
           previewLink.textContent = baseURL + (valor || "[tu_codigo]");
           costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-          submitButton.textContent = "Registrate y pagá $5000 ARS";
+          submitButton.textContent = "Regístrate y pagá $5000 ARS";
         }
       }
     }
