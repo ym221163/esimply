@@ -122,12 +122,12 @@ El mensaje predefinido tiene tu código de Afiliado y así trackeamos tus ventas
           const codigoAleatorio = generarCodigoAleatorio();
           previewLink.textContent = baseURL + codigoAleatorio;
           costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-          submitButton.textContent = "Regístrate";
+          submitButton.textContent = "Registrate sin costo";
         } else if (selectedTipo.value === "personalizado") {
           const valor = customInput.value.trim();
           previewLink.textContent = baseURL + (valor || "[tu_codigo]");
           costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-          submitButton.textContent = "Regístrate y pagá $5000 ARS";
+          submitButton.textContent = "Registrate y pagá $5000 ARS";
         }
       }
     }
