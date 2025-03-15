@@ -2,49 +2,64 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Registro de Afiliado</title>
-  <style>
-    /* Estilos básicos */
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    form { max-width: 500px; margin: auto; }
-    input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
-    .opciones { margin: 10px 0; }
-    #codigoPersonalizadoDiv { display: none; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Afiliado - eSimply</title>
+  <link rel="icon" type="image/x-icon" href="file.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzM1jyykVbj8k-tKV1Q7V3fgneGj_r_oUPc0e-DJF2P_dGvCK3uf70EMkusi5eNG6KV9w/exec" method="post">
-  <!-- Campos de formulario -->
-  <input type="text" name="nombre" placeholder="Nombre" required>
-  <input type="text" name="apellido" placeholder="Apellido" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="tel" name="telefono" placeholder="Teléfono" required>
+<body class="bg-white font-sans">
+  <header class="bg-[#d62324] text-white p-4 flex items-center justify-center shadow-md">
+    <img src="file.png" class="h-12 mr-3" alt="Logo">
+    <h1 class="text-2xl font-semibold" id="header-text">Registro de Afiliado</h1>
+  </header>
   
-  <p>Seleccione el tipo de código de afiliado:</p>
-  <div class="opciones">
-    <label>
-      <input type="radio" name="tipo_codigo" value="gratuito" required>
-      Código de afiliado gratuito
-    </label>
-    <label>
-      <input type="radio" name="tipo_codigo" value="personalizado">
-      Código de afiliado personalizado
-    </label>
-  </div>
-  
-  <!-- Campo adicional para código personalizado -->
-  <div id="codigoPersonalizadoDiv" style="display: none;">
-    <input type="text" name="codigo_personalizado" placeholder="Código personalizado único">
-  </div>
-  
-  <!-- Campo oculto para guardar el link de afiliado -->
-  <input type="hidden" name="link_afiliado" id="link_afiliado">
-  
-  <button type="submit">Enviar</button>
-</form>
+  <main class="max-w-2xl mx-auto p-4">
+    <h2 class="text-xl font-bold mb-4 text-center">¡Unite a nuestro programa de afiliados!</h2>
+    <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzM1jyykVbj8k-tKV1Q7V3fgneGj_r_oUPc0e-DJF2P_dGvCK3uf70EMkusi5eNG6KV9w/exec" method="post" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" name="nombre" placeholder="Nombre" required class="border border-gray-300 p-3 rounded w-full">
+        <input type="text" name="apellido" placeholder="Apellido" required class="border border-gray-300 p-3 rounded w-full">
+      </div>
+      <input type="email" name="email" placeholder="Email" required class="border border-gray-300 p-3 rounded w-full">
+      <input type="tel" name="telefono" placeholder="Teléfono" required class="border border-gray-300 p-3 rounded w-full">
+      
+      <div>
+        <p class="font-semibold mb-2">Seleccione el tipo de código de afiliado:</p>
+        <div class="flex items-center space-x-4">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tipo_codigo" value="gratuito" required class="form-radio">
+            <span>Código de afiliado gratuito</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tipo_codigo" value="personalizado" class="form-radio">
+            <span>Código de afiliado personalizado</span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Campo adicional para código personalizado -->
+      <div id="codigoPersonalizadoDiv" class="hidden">
+        <input type="text" name="codigo_personalizado" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
+      </div>
+      
+      <!-- Previsualización del link de afiliado -->
+      <div class="bg-gray-100 p-3 rounded">
+        <p class="text-sm text-gray-600">Previsualización del link de afiliado:</p>
+        <p class="font-semibold" id="previewLink">https://www.esimplyglobal.com/</p>
+      </div>
+      
+      <!-- Campo oculto para guardar el link generado -->
+      <input type="hidden" name="link_afiliado" id="link_afiliado">
+      
+      <button type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
+        Enviar Registro
+      </button>
+    </form>
+  </main>
   
   <script>
-    // Función para generar un código alfanumérico aleatorio de 9 caracteres
+    // Función para generar un código aleatorio de 9 caracteres
     function generarCodigoAleatorio() {
       const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let codigo = '';
@@ -54,39 +69,63 @@
       return codigo;
     }
     
-    // Mostrar u ocultar el input de código personalizado según la opción seleccionada
     const radios = document.getElementsByName("tipo_codigo");
     const codigoPersonalizadoDiv = document.getElementById("codigoPersonalizadoDiv");
+    const previewLink = document.getElementById("previewLink");
+    const baseURL = "https://www.esimplyglobal.com/";
+    const customInput = document.querySelector('input[name="codigo_personalizado"]');
     
+    // Actualiza la previsualización del link según la opción seleccionada
+    function actualizarPreview() {
+      const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
+      if (selectedTipo) {
+        if (selectedTipo.value === "gratuito") {
+          // Genera un código aleatorio y lo muestra
+          const codigoAleatorio = generarCodigoAleatorio();
+          previewLink.textContent = baseURL + codigoAleatorio;
+        } else if (selectedTipo.value === "personalizado") {
+          // Muestra el link con el código ingresado o un placeholder
+          const valor = customInput.value.trim();
+          previewLink.textContent = baseURL + (valor || "[tu_codigo]");
+        }
+      }
+    }
+    
+    // Escucha cambios en los radio buttons para mostrar/ocultar el input extra y actualizar la previsualización
     radios.forEach(radio => {
       radio.addEventListener("change", function() {
         if (this.value === "personalizado") {
-          codigoPersonalizadoDiv.style.display = "block";
+          codigoPersonalizadoDiv.classList.remove("hidden");
         } else {
-          codigoPersonalizadoDiv.style.display = "none";
+          codigoPersonalizadoDiv.classList.add("hidden");
         }
+        actualizarPreview();
       });
     });
     
+    // Actualiza el preview en tiempo real al escribir en el campo personalizado
+    if(customInput) {
+      customInput.addEventListener("input", actualizarPreview);
+    }
+    
     // Manejo del envío del formulario
     document.getElementById("registroForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // Prevenir el envío normal
+      event.preventDefault(); // Evita el envío por defecto
       
       const form = event.target;
       const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
-      const baseURL = "https://www.esimplyglobal.com/"; // URL base para el link de afiliado
       
       if (selectedTipo === "gratuito") {
-        // Genera código aleatorio y arma el link
+        // Genera un código aleatorio para el link gratuito
         const codigoAleatorio = generarCodigoAleatorio();
         document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
       } else if (selectedTipo === "personalizado") {
-        // Toma el código ingresado por el usuario
-        const codigoPersonalizado = form.codigo_personalizado.value;
+        // Usa el código ingresado por el usuario para el link personalizado
+        const codigoPersonalizado = form.codigo_personalizado.value.trim();
         document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
       }
       
-      // Envía los datos del formulario usando Fetch a Google Sheets
+      // Envía los datos a Google Sheets vía Fetch
       fetch(form.action, {
         method: form.method,
         body: new FormData(form)
@@ -94,10 +133,10 @@
       .then(response => {
         if (response.ok) {
           if (selectedTipo === "personalizado") {
-            // Si eligió opción personalizada, redirige al link de pago
+            // Redirige al link de pago si eligió código personalizado
             window.location.href = "https://mpago.la/1mpya7W";
           } else {
-            // Para opción gratuita, puedes mostrar un mensaje de confirmación
+            // Muestra una alerta con el link generado para opción gratuita
             alert("Registro completado. Tu link de afiliado es: " + document.getElementById("link_afiliado").value);
           }
         } else {
