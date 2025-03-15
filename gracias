@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Gracias por registrarte como afiliado!</title>
+  <link rel="icon" type="image/x-icon" href="file.png">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+  <header class="bg-[#d62324] text-white p-4 flex items-center justify-center shadow-md">
+    <img src="file.png" class="h-12 mr-3" alt="Logo">
+    <h1 class="text-2xl font-semibold">¡Gracias por registrarte!</h1>
+  </header>
+  
+  <main class="max-w-2xl mx-auto p-8 text-center">
+    <div class="bg-green-100 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-800">¡Felicidades, tu código de afiliado ha sido registrado!</h2>
+      <p class="text-gray-600 mt-4">
+        Tu código personalizado está en proceso de activación. Recuerda que este puede tardar algunas horas en estar disponible. 
+        Además, recibirás un email con tus códigos QR para que puedas empezar a compartirlos y ganar comisiones.
+      </p>
+      <p class="text-gray-600 mt-4">
+        Si tienes alguna duda, no dudes en contactarnos a través de nuestros canales de soporte.
+      </p>
+    </div>
+    
+    <div class="mt-8">
+      <a href="/" class="inline-block text-[#d62324] font-bold text-lg hover:underline">
+        Volver al inicio
+      </a>
+    </div>
+  </main>
+</body>
+</html>
