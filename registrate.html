@@ -141,7 +141,7 @@
         return;
       }
       // Construye la URL para la petición GET (asegúrate de que tu Apps Script responda a esta acción)
-      const url = "https://script.google.com/macros/s/AKfycbzM1jyykVbj8k-tKV1Q7V3fgneGj_r_oUPc0e-DJF2P_dGvCK3uf70EMkusi5eNG6KV9w/exec?action=check&codigo=" + encodeURIComponent(code);
+      const url = "https://script.google.com/macros/s/AKfycbyOSumV5hGQk_9Z88o1-sjgF_F71v8pFSZr96eiqKp53BiemMorWyW_Ub20xELzsuc-zg/exec?action=check&codigo=" + encodeURIComponent(code);
       fetch(url)
         .then(response => response.json())
         .then(data => {
