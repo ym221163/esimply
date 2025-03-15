@@ -54,7 +54,8 @@
       <!-- Campo oculto para guardar el link generado -->
       <input type="hidden" name="link_afiliado" id="link_afiliado">
       
-      <button type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
+      <!-- Botón de envío dinámico -->
+      <button id="submitButton" type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
         Enviar Registro
       </button>
     </form>
@@ -96,26 +97,26 @@
     const costInfo = document.getElementById("costInfo");
     const baseURL = "https://www.esimplyglobal.com/";
     const customInput = document.querySelector('input[name="codigo_personalizado"]');
+    const submitButton = document.getElementById("submitButton");
     
-    // Actualiza la previsualización del link según la opción seleccionada
+    // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
     function actualizarPreview() {
       const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
       if (selectedTipo) {
         if (selectedTipo.value === "gratuito") {
-          // Genera un código aleatorio y lo muestra
           const codigoAleatorio = generarCodigoAleatorio();
           previewLink.textContent = baseURL + codigoAleatorio;
           costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
+          submitButton.textContent = "Registrate";
         } else if (selectedTipo.value === "personalizado") {
-          // Muestra el link con el código ingresado o un placeholder
           const valor = customInput.value.trim();
           previewLink.textContent = baseURL + (valor || "[tu_codigo]");
           costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
+          submitButton.textContent = "Registrate y pagá $5000 ARS";
         }
       }
     }
     
-    // Escucha cambios en los radio buttons para mostrar/ocultar el input extra y actualizar la previsualización
     radios.forEach(radio => {
       radio.addEventListener("change", function() {
         if (this.value === "personalizado") {
@@ -127,24 +128,20 @@
       });
     });
     
-    // Actualiza el preview en tiempo real al escribir en el campo personalizado
     if(customInput) {
       customInput.addEventListener("input", actualizarPreview);
     }
     
-    // Manejo del envío del formulario
     document.getElementById("registroForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // Evita el envío por defecto
+      event.preventDefault();
       
       const form = event.target;
       const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
       
       if (selectedTipo === "gratuito") {
-        // Genera un código aleatorio para el link gratuito
         const codigoAleatorio = generarCodigoAleatorio();
         document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
       } else if (selectedTipo === "personalizado") {
-        // Usa el código ingresado por el usuario para el link personalizado
         const codigoPersonalizado = form.codigo_personalizado.value.trim();
         document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
       }
@@ -157,10 +154,8 @@
       .then(response => {
         if (response.ok) {
           if (selectedTipo === "personalizado") {
-            // Redirige al link de pago si se eligió código personalizado
             window.location.href = "https://mpago.la/1mpya7W";
           } else {
-            // Muestra una alerta con el link generado para opción gratuita
             alert("Registro completado. Tu link de afiliado es: " + document.getElementById("link_afiliado").value);
           }
         } else {
