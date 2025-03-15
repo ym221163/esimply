@@ -13,34 +13,35 @@
   </style>
 </head>
 <body>
-  <form id="registroForm" action="https://script.google.com/macros/tu_endpoint_aqui" method="post">
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="text" name="apellido" placeholder="Apellido" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="tel" name="telefono" placeholder="Teléfono" required>
-    
-    <p>Seleccione el tipo de código de afiliado:</p>
-    <div class="opciones">
-      <label>
-        <input type="radio" name="tipo_codigo" value="gratuito" required>
-        Código de afiliado gratuito
-      </label>
-      <label>
-        <input type="radio" name="tipo_codigo" value="personalizado">
-        Código de afiliado personalizado
-      </label>
-    </div>
-    
-    <!-- Campo adicional para código personalizado -->
-    <div id="codigoPersonalizadoDiv">
-      <input type="text" name="codigo_personalizado" placeholder="Código personalizado único">
-    </div>
-    
-    <!-- Campo oculto para guardar el link de afiliado -->
-    <input type="hidden" name="link_afiliado" id="link_afiliado">
-    
-    <button type="submit">Enviar</button>
-  </form>
+  <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzM1jyykVbj8k-tKV1Q7V3fgneGj_r_oUPc0e-DJF2P_dGvCK3uf70EMkusi5eNG6KV9w/exec" method="post">
+  <!-- Campos de formulario -->
+  <input type="text" name="nombre" placeholder="Nombre" required>
+  <input type="text" name="apellido" placeholder="Apellido" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="tel" name="telefono" placeholder="Teléfono" required>
+  
+  <p>Seleccione el tipo de código de afiliado:</p>
+  <div class="opciones">
+    <label>
+      <input type="radio" name="tipo_codigo" value="gratuito" required>
+      Código de afiliado gratuito
+    </label>
+    <label>
+      <input type="radio" name="tipo_codigo" value="personalizado">
+      Código de afiliado personalizado
+    </label>
+  </div>
+  
+  <!-- Campo adicional para código personalizado -->
+  <div id="codigoPersonalizadoDiv" style="display: none;">
+    <input type="text" name="codigo_personalizado" placeholder="Código personalizado único">
+  </div>
+  
+  <!-- Campo oculto para guardar el link de afiliado -->
+  <input type="hidden" name="link_afiliado" id="link_afiliado">
+  
+  <button type="submit">Enviar</button>
+</form>
   
   <script>
     // Función para generar un código alfanumérico aleatorio de 9 caracteres
