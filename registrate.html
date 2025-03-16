@@ -15,7 +15,11 @@
   </header>
   
   <main class="max-w-2xl mx-auto p-4">
-    <h2 class="text-xl font-bold mb-4 text-center">¡Unite a nuestro programa de afiliados!</h2>
+    <div id="messageContainer" class="hidden bg-green-100 p-6 rounded text-center">
+      <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
+      <p class="text-gray-600 mt-2">En unas horas recibirás por email tu link de afiliado y tus QR.</p>
+    </div>
+
     <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzTgj1xNf7ltZNIO4_vGt2u7dRy4c2BBb5YGAfNf58wt4yXOti79CrZb_pVP8pCY2I6/exec" method="post" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="nombre" placeholder="Nombre" required class="border border-gray-300 p-3 rounded w-full">
@@ -36,89 +40,47 @@
             <span>Código personalizado</span>
           </label>
         </div>
-        <!-- Mensaje dinámico para indicar el costo -->
         <div id="costInfo" class="mt-2 text-sm text-gray-600"></div>
       </div>
       
-      <!-- Campo adicional para código personalizado -->
       <div id="codigoPersonalizadoDiv" class="hidden space-y-2">
         <input type="text" name="codigo_personalizado" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
-        <!-- Banner llamativo -->
         <div class="p-2 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
           ¡Los códigos personalizados generan más conversión! Amortizalo con la <strong>primera venta</strong>.
         </div>
       </div>
       
-      <!-- Previsualización del link de afiliado -->
       <div class="bg-gray-100 p-3 rounded">
         <p class="text-sm text-gray-600">Previsualización del link de afiliado:</p>
         <p class="font-semibold" id="previewLink">https://www.esimplyglobal.com/</p>
       </div>
       
-      <!-- Campo oculto para guardar el link generado -->
       <input type="hidden" name="link_afiliado" id="link_afiliado">
       
-      <!-- Botón de envío dinámico -->
       <button id="submitButton" type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
         Envíar Registro
       </button>
     </form>
-<!-- Sección informativa "¿Cómo funciona?" -->
-<section class="mt-8 bg-gray-50 p-6 rounded shadow">
-    <h3 class="text-lg font-bold mb-4">¿Cómo Funciona Nuestro Programa de Afiliados?</h3>
-    <ol class="list-decimal list-inside text-gray-700 space-y-4">
-        <li>
-            <strong>Redirección Inteligente:</strong>
-            <p class="ml-4">
-                Tu link de afiliado y tu QR redireccionan al cliente a nuestro bot de WhatsApp, 
-                el cual gestiona las ventas de las eSIM de manera rápida y eficiente. 
-                El mensaje predefinido incluye tu código de afiliado para trackear tus ventas.
-            </p>
-        </li>
-        <li>
-            <strong>Beneficios para tu huésped:</strong>
-            <p class="ml-4">
-                Descuento Exclusivo: El huésped que utilice tu código obtendrá un <span class="font-bold">5% de descuento</span> 
-                en su primera compra, incentivando la conversión.
-            </p>
-        </li>
-        <li>
-            <strong>Tus Ganancias:</strong>
-            <p class="ml-4">
-                Ingreso por Ventas: Cada compra realizada por un huésped a través de tu link o QR te generará ingresos.
-            </p>
-            <p class="ml-4">
-                Resumen de Ventas: Cada 15 días vas a recibir un resumen detallado de tus ventas y los comprobantes de pago.
-            </p>
-        </li>
-        <li>
-            <strong>Modalidad de Pago:</strong>
-            <p class="ml-4">
-                Pagos Seguros: Realizamos los pagos de las comisiones en pesos argentinos a través de MercadoPago, 
-                utilizando el valor del dólar blue para garantizar transparencia y seguridad. 
-                Al generar tu primera venta, te pediremos el alias para enviar el pago.
-            </p>
-        </li>
-        <li>
-            <strong>Cobertura de Producto:</strong>
-            <p class="ml-4">
-                Amplia Cobertura: Nuestras eSIM ofrecen conectividad en toda Latinoamérica, 
-                ideal para turistas que visitan varios países.
-            </p>
-        </li>
-    </ol>
-    <p class="mt-4 text-sm text-gray-600">
-        <strong>Nota:</strong> El código de afiliado gratuito se genera automáticamente sin costo, mientras que el código personalizado tiene un costo único de <span class="font-bold">$5000 ARS</span>.
-    </p>
-    <p class="mt-2 text-sm text-gray-600">
-        Consulta nuestra <a href="https://docs.google.com/spreadsheets/d/1gsUQU-RGKrVNIVFPJB3ZFqVpzLDFaondFOpQ1HJ6evE/edit?usp=sharing" target="_blank" class="underline text-blue-600">lista de comisiones</a> para más detalles.
-    </p>
-</section>
 
+    <section class="mt-8 bg-gray-50 p-6 rounded shadow">
+      <h3 class="text-lg font-bold mb-4">¿Cómo Funciona Nuestro Programa de Afiliados?</h3>
+      <ol class="list-decimal list-inside text-gray-700 space-y-4">
+        <li><strong>Redirección Inteligente:</strong><p class="ml-4">Tu link de afiliado y tu QR redireccionan al cliente a nuestro bot de WhatsApp.</p></li>
+        <li><strong>Beneficios para tu huésped:</strong><p class="ml-4">Descuento Exclusivo: 5% de descuento en su primera compra.</p></li>
+        <li><strong>Tus Ganancias:</strong><p class="ml-4">Cada compra realizada por un huésped a través de tu link o QR te generará ingresos.</p></li>
+        <li><strong>Modalidad de Pago:</strong><p class="ml-4">Pagos Seguros: Comisiones en pesos argentinos a través de MercadoPago.</p></li>
+        <li><strong>Cobertura de Producto:</strong><p class="ml-4">Conectividad en toda Latinoamérica, ideal para turistas.</p></li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-600">
+        <strong>Nota:</strong> El código gratuito se genera sin costo, mientras que el personalizado tiene un costo de <span class="font-bold">$5000 ARS</span>.
+      </p>
+      <p class="mt-2 text-sm text-gray-600">
+        Consulta nuestra <a href="https://docs.google.com/spreadsheets/d/1gsUQU-RGKrVNIVFPJB3ZFqVpzLDFaondFOpQ1HJ6evE/edit?usp=sharing" target="_blank" class="underline text-blue-600">lista de comisiones</a> para más detalles.
+      </p>
+    </section>
   </main>
 
 <script>
-  // Función para generar un código aleatorio de 9 caracteres
   function generarCodigoAleatorio() {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let codigo = '';
@@ -136,7 +98,6 @@
   const customInput = document.querySelector('input[name="codigo_personalizado"]');
   const submitButton = document.getElementById("submitButton");
 
-  // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
   function actualizarPreview() {
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
     if (selectedTipo) {
@@ -144,12 +105,12 @@
         const codigoAleatorio = generarCodigoAleatorio();
         previewLink.textContent = baseURL + codigoAleatorio;
         costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-        submitButton.textContent = "Registrate sin costo";
+        submitButton.textContent = "Regístrate sin costo";
       } else if (selectedTipo.value === "personalizado") {
         const valor = customInput.value.trim();
         previewLink.textContent = baseURL + (valor || "[tu_codigo]");
         costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-        submitButton.textContent = "Registrate y pagá $5000 ARS";
+        submitButton.textContent = "Regístrate y pagá $5000 ARS";
       }
     }
   }
@@ -165,9 +126,8 @@
     });
   });
 
-  // Manejo del envío del formulario de manera asíncrona
   document.getElementById("registroForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evitar el envío automático del formulario
+    event.preventDefault();
     const form = event.target;
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
 
@@ -175,40 +135,32 @@
     if (selectedTipo === "personalizado") {
       codigo = form.codigo_personalizado.value.trim();
       document.getElementById("link_afiliado").value = baseURL + codigo;
+
+      // Redirigir a MercadoPago para el pago
+      window.location.href = "https://mpago.la/1zvdn4M"; // Redirección a MercadoPago
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Enviar datos al Google Sheets
-    fetch(form.action, {
-      method: form.method,
-      body: new FormData(form)
-    })
+    if (selectedTipo === "gratuito") {
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form)
+      })
       .then(response => response.text())
       .then(data => {
-        if (response.ok) {
-          // Ocultar el formulario
-          form.style.display = 'none';
+        // Ocultar el formulario
+        form.style.display = 'none';
 
-          // Mostrar el mensaje de agradecimiento en el lugar del formulario
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
-          messageContainer.innerHTML = `
-            <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
-            <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
-          `;
-
-          // Insertar el mensaje en el lugar del formulario
-          document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
-        } else {
-          alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
-        }
+        // Mostrar el mensaje de agradecimiento en el lugar del formulario
+        document.getElementById("messageContainer").classList.remove("hidden");
       })
       .catch(error => {
         console.error("Error:", error);
         alert("Error al enviar el formulario.");
       });
+    }
   });
 </script>
 
