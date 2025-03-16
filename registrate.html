@@ -215,7 +215,8 @@
       // Verificar disponibilidad antes de enviar
       const result = await checkCodeAvailability();
       if (!result.disponible) {
-        alert("El código ya existe. Por favor, elige otro código personalizado.");
+        // Mostrar mensaje de error si el código ya está tomado
+        alert("Código de afiliado no disponible. Por favor, elige otro código personalizado.");
         return; // Evita el envío
       }
       const codigoPersonalizado = form.codigo_personalizado.value.trim();
@@ -260,6 +261,7 @@
     }
   });
 </script>
+
 
 
 </body>
