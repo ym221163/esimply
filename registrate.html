@@ -45,7 +45,7 @@
         <input type="text" name="codigo_personalizado" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
         <!-- Banner llamativo -->
         <div class="p-2 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
-          ¡Los códigos personalizados generan más conversión! Amortizalo con tu <strong>primera venta.</strong> 
+          ¡Los códigos personalizados generan más conversión!
         </div>
         <!-- Mensaje de disponibilidad -->
         <div id="availabilityMessage" class="mt-2 text-sm"></div>
@@ -220,47 +220,32 @@
       }
       const codigoPersonalizado = form.codigo_personalizado.value.trim();
       document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
-      
-      // Redirigir a MercadoPago para el pago
-      window.location.href = "https://mpago.la/1mpya7W";
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Envía los datos a Google Sheets vía Fetch solo si es un registro gratuito
-    if (selectedTipo === "gratuito") {
-      fetch(form.action, {
-        method: form.method,
-        body: new FormData(form)
-      })
-      .then(response => {
-        if (response.ok) {
-          // Ocultar el formulario
-          form.style.display = 'none';
-
-          // Mostrar el mensaje de agradecimiento en el lugar del formulario
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
-          messageContainer.innerHTML = 
-            <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
-            <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
-          ;
-
-          // Insertar el mensaje en el lugar del formulario
-          document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
+    // Envía los datos a Google Sheets vía Fetch
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form)
+    })
+    .then(response => {
+      if (response.ok) {
+        if (selectedTipo === "personalizado") {
+          window.location.href = "https://mpago.la/1mpya7W";
         } else {
-          alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
+          alert("Registro completado. Tu link de afiliado es: " + document.getElementById("link_afiliado").value);
         }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Error al enviar el formulario.");
-      });
-    }
+      } else {
+        alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("Error al enviar el formulario.");
+    });
   });
 </script>
-
-
 </body>
 </html>
