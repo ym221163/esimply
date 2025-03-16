@@ -132,31 +132,34 @@
   const customInput = document.querySelector('input[name="codigo_personalizado"]');
   const submitButton = document.getElementById("submitButton");
   const availabilityMessage = document.getElementById("availabilityMessage");
-  const errorMessage = document.getElementById("errorMessage"); // El contenedor del error
 
   // Función para verificar la disponibilidad del código personalizado y retornar una Promesa
-  function checkCodeAvailability(code) {
-    return new Promise((resolve, reject) => {
-      if (!code) {
-        resolve({ disponible: true });
-        return; // Considerar siempre disponible si no se ha ingresado un código
-      }
-
-      const url = "https://script.google.com/macros/s/AKfycbwTuS1fkuDQ9YVojH5m1ZT0slPuTGCC4Ji-ybU93xnkf4xZW6ewmmUZDEM33xYfyXey/exec?action=check&codigo=" + encodeURIComponent(code);
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.disponible) {
-            resolve({ disponible: true });
-          } else {
-            resolve({ disponible: false });
-          }
-        })
-        .catch(error => {
-          console.error("Error verificando disponibilidad:", error);
-          reject(error);
-        });
-    });
+  function checkCodeAvailability() {
+    const code = customInput.value.trim();
+    if (!code) {
+      availabilityMessage.textContent = "";
+      return Promise.resolve({ disponible: false });
+    }
+    const url = "https://script.google.com/macros/s/AKfycbwTuS1fkuDQ9YVojH5m1ZT0slPuTGCC4Ji-ybU93xnkf4xZW6ewmmUZDEM33xYfyXey/exec?action=check&codigo=" + encodeURIComponent(code);
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.disponible) {
+          availabilityMessage.textContent = "Código disponible";
+          availabilityMessage.classList.remove("text-red-600");
+          availabilityMessage.classList.add("text-green-600");
+        } else {
+          availabilityMessage.textContent = "Código no disponible";
+          availabilityMessage.classList.remove("text-green-600");
+          availabilityMessage.classList.add("text-red-600");
+        }
+        return data;
+      })
+      .catch(error => {
+        console.error("Error verificando disponibilidad:", error);
+        availabilityMessage.textContent = "";
+        return { disponible: false };
+      });
   }
 
   // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
@@ -167,21 +170,15 @@
         const codigoAleatorio = generarCodigoAleatorio();
         previewLink.textContent = baseURL + codigoAleatorio;
         costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-        submitButton.textContent = "Regístrate sin costo";
+        submitButton.textContent = "Registrate sin costo";
       } else if (selectedTipo.value === "personalizado") {
         const valor = customInput.value.trim();
         previewLink.textContent = baseURL + (valor || "[tu_codigo]");
         costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-        submitButton.textContent = "Regístrate y pagá $5000 ARS";
+        submitButton.textContent = "Registrate y pagá $5000 ARS";
         // Si hay texto, verifica disponibilidad
         if (valor) {
-          checkCodeAvailability(valor).then(result => {
-            if (!result.disponible) {
-              errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
-            } else {
-              errorMessage.classList.add("hidden"); // Ocultar mensaje de error
-            }
-          });
+          checkCodeAvailability();
         } else {
           availabilityMessage.textContent = "";
         }
@@ -200,71 +197,69 @@
     });
   });
 
-  if (customInput) {
+  if(customInput) {
     customInput.addEventListener("input", function() {
       actualizarPreview();
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = setTimeout(checkCodeAvailability, 500);
     });
   }
 
   // Manejo del envío del formulario de manera asíncrona
   document.getElementById("registroForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Evitar el envío automático del formulario
+    event.preventDefault();
     const form = event.target;
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
 
-    // Si se seleccionó código personalizado, verificar disponibilidad antes de proceder
     if (selectedTipo === "personalizado") {
-      const result = await checkCodeAvailability(form.codigo_personalizado.value.trim());
+      // Verificar disponibilidad antes de enviar
+      const result = await checkCodeAvailability();
       if (!result.disponible) {
-        errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
-        return; // No enviar el formulario si el código no está disponible
-      } else {
-        errorMessage.classList.add("hidden"); // Ocultar mensaje de error si el código es válido
+        alert("El código ya existe. Por favor, elige otro código personalizado.");
+        return; // Evita el envío
       }
-
       const codigoPersonalizado = form.codigo_personalizado.value.trim();
       document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
-
+      
       // Redirigir a MercadoPago para el pago
-      window.location.href = "https://mpago.la/1mpya7W";
+      window.location.href = "https://mpago.la/1zvdn4M";
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Solo enviar los datos si el código es gratuito
+    // Envía los datos a Google Sheets vía Fetch solo si es un registro gratuito
     if (selectedTipo === "gratuito") {
       fetch(form.action, {
         method: form.method,
         body: new FormData(form)
       })
-        .then(response => {
-          if (response.ok) {
-            // Ocultar el formulario
-            form.style.display = 'none';
+      .then(response => {
+        if (response.ok) {
+          // Ocultar el formulario
+          form.style.display = 'none';
 
-            // Mostrar el mensaje de agradecimiento en el lugar del formulario
-            const messageContainer = document.createElement('div');
-            messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
-            messageContainer.innerHTML = `
-              <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
-              <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
-            `;
+          // Mostrar el mensaje de agradecimiento en el lugar del formulario
+          const messageContainer = document.createElement('div');
+          messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
+          messageContainer.innerHTML = 
+            <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
+            <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
+          ;
 
-            // Insertar el mensaje en el lugar del formulario
-            document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
-          } else {
-            alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          alert("Error al enviar el formulario.");
-        });
+          // Insertar el mensaje en el lugar del formulario
+          document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
+        } else {
+          alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error al enviar el formulario.");
+      });
     }
   });
 </script>
-
 
 
 </body>
