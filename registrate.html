@@ -216,18 +216,19 @@
 
   // Manejo del envío del formulario de manera asíncrona
   document.getElementById("registroForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Evitar el envío automático del formulario
     const form = event.target;
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
 
+    // Si se seleccionó código personalizado, verificar disponibilidad antes de proceder
     if (selectedTipo === "personalizado") {
-      // Verificar disponibilidad antes de enviar
       const result = await checkCodeAvailability();
       if (!result.disponible) {
-        // No redirigir ni enviar formulario si el código no está disponible
         errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
-        return; // Evita el envío
+        return; // No enviar el formulario si el código no está disponible
       }
+
+      // Si el código es válido, preparar el formulario
       const codigoPersonalizado = form.codigo_personalizado.value.trim();
       document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
       
@@ -238,7 +239,7 @@
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Envía los datos a Google Sheets vía Fetch solo si es un registro gratuito
+    // Solo enviar los datos si el código es gratuito
     if (selectedTipo === "gratuito") {
       fetch(form.action, {
         method: form.method,
@@ -270,6 +271,7 @@
     }
   });
 </script>
+
 
 
 
