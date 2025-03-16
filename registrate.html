@@ -45,10 +45,8 @@
         <input type="text" name="codigo_personalizado" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
         <!-- Banner llamativo -->
         <div class="p-2 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
-          ¡Los códigos personalizados generan más conversión!
+          ¡Los códigos personalizados generan más conversión! Amortizalo con la <strong>primera venta</strong>.
         </div>
-        <!-- Mensaje de disponibilidad -->
-        <div id="availabilityMessage" class="mt-2 text-sm"></div>
       </div>
       
       <!-- Previsualización del link de afiliado -->
@@ -65,54 +63,8 @@
         Envíar Registro
       </button>
     </form>
-    
-    <!-- Sección informativa "¿Cómo funciona?" -->
-    <section class="mt-8 bg-gray-50 p-6 rounded shadow">
-      <h3 class="text-lg font-bold mb-4">¿Cómo Funciona Nuestro Programa de Afiliados?</h3>
-      <ol class="list-decimal list-inside text-gray-700 space-y-4">
-        <li>
-          <strong>Redirección Inteligente:</strong>
-          <p class="ml-4">
-            Tu link de afiliado y tu QR redireccionan al cliente a nuestro bot de WhatsApp, el cual gestiona las ventas de las eSIM de manera rápida y eficiente. El mensaje predefinido incluye tu código de afiliado para trackear tus ventas.
-          </p>
-        </li>
-        <li>
-          <strong>Beneficios para tu huésped:</strong>
-          <p class="ml-4">
-            Descuento Exclusivo: El huésped que utilice tu código obtendrá un <span class="font-bold">5% de descuento</span> en su primera compra, incentivando la conversión.
-          </p>
-        </li>
-        <li>
-          <strong>Tus Ganancias:</strong>
-          <p class="ml-4">
-            Ingreso por Ventas: Cada compra realizada por un huésped a través de tu link o QR te generará ingresos.
-          </p>
-          <p class="ml-4">
-            Resumen de Ventas: Cada 15 días vas a recibir un resumen detallado de tus ventas y los comprobantes de pago.
-          </p>
-        </li>
-        <li>
-          <strong>Modalidad de Pago:</strong>
-          <p class="ml-4">
-            Pagos Seguros: Realizamos los pagos de las comisiones en pesos argentinos a través de MercadoPago, utilizando el valor del dólar blue para garantizar transparencia y seguridad. Al generar tu primera venta, te pediremos el alias para enviar el pago.
-          </p>
-        </li>
-        <li>
-          <strong>Cobertura de Producto:</strong>
-          <p class="ml-4">
-            Amplia Cobertura: Nuestras eSIM ofrecen conectividad en toda Latinoamérica, ideal para turistas que visitan varios países.
-          </p>
-        </li>
-      </ol>
-      <p class="mt-4 text-sm text-gray-600">
-        <strong>Nota:</strong> El código de afiliado gratuito se genera automáticamente sin costo, mientras que el código personalizado tiene un costo único de <span class="font-bold">$5000 ARS</span>.
-      </p>
-      <p class="mt-2 text-sm text-gray-600">
-        Consulta nuestra <a href="https://docs.google.com/spreadsheets/d/1gsUQU-RGKrVNIVFPJB3ZFqVpzLDFaondFOpQ1HJ6evE/edit?usp=sharing" target="_blank" class="underline text-blue-600">lista de comisiones</a> para más detalles.
-      </p>
-    </section>
   </main>
-  
+
 <script>
   // Función para generar un código aleatorio de 9 caracteres
   function generarCodigoAleatorio() {
@@ -131,33 +83,6 @@
   const baseURL = "https://www.esimplyglobal.com/";
   const customInput = document.querySelector('input[name="codigo_personalizado"]');
   const submitButton = document.getElementById("submitButton");
-  const availabilityMessage = document.getElementById("availabilityMessage");
-  const errorMessage = document.getElementById("errorMessage"); // El contenedor del error
-
-  // Función para verificar la disponibilidad del código personalizado y retornar una Promesa
-  function checkCodeAvailability(code) {
-    return new Promise((resolve, reject) => {
-      if (!code) {
-        resolve({ disponible: true });
-        return; // Considerar siempre disponible si no se ha ingresado un código
-      }
-
-      const url = "https://script.google.com/macros/s/AKfycbw4Jkd6k-JxXaMQs9FYGFDGOCN_ZXR9e5ak6zs7cDcbRlmUnMCE55TzVVSOvg1yCw_C/exec?action=check&codigo=" + encodeURIComponent(code);
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.disponible) {
-            resolve({ disponible: true });
-          } else {
-            resolve({ disponible: false });
-          }
-        })
-        .catch(error => {
-          console.error("Error verificando disponibilidad:", error);
-          reject(error);
-        });
-    });
-  }
 
   // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
   function actualizarPreview() {
@@ -173,18 +98,6 @@
         previewLink.textContent = baseURL + (valor || "[tu_codigo]");
         costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
         submitButton.textContent = "Regístrate y pagá $5000 ARS";
-        // Si hay texto, verifica disponibilidad
-        if (valor) {
-          checkCodeAvailability(valor).then(result => {
-            if (!result.disponible) {
-              errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
-            } else {
-              errorMessage.classList.add("hidden"); // Ocultar mensaje de error
-            }
-          });
-        } else {
-          availabilityMessage.textContent = "";
-        }
       }
     }
   }
@@ -200,68 +113,50 @@
     });
   });
 
-  if (customInput) {
-    customInput.addEventListener("input", function() {
-      actualizarPreview();
-    });
-  }
-
   // Manejo del envío del formulario de manera asíncrona
-  document.getElementById("registroForm").addEventListener("submit", async function(event) {
+  document.getElementById("registroForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Evitar el envío automático del formulario
     const form = event.target;
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
 
-    // Si se seleccionó código personalizado, verificar disponibilidad antes de proceder
+    let codigo = "";
     if (selectedTipo === "personalizado") {
-      const result = await checkCodeAvailability(form.codigo_personalizado.value.trim());
-      if (!result.disponible) {
-        errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
-        return; // No enviar el formulario si el código no está disponible
-      } else {
-        errorMessage.classList.add("hidden"); // Ocultar mensaje de error si el código es válido
-      }
-
-      const codigoPersonalizado = form.codigo_personalizado.value.trim();
-      document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
-
-      // Redirigir a MercadoPago para el pago
-      window.location.href = "https://mpago.la/1mpya7W";
+      codigo = form.codigo_personalizado.value.trim();
+      document.getElementById("link_afiliado").value = baseURL + codigo;
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Solo enviar los datos si el código es gratuito
-    if (selectedTipo === "gratuito") {
-      fetch(form.action, {
-        method: form.method,
-        body: new FormData(form)
+    // Enviar datos al Google Sheets
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form)
+    })
+      .then(response => response.text())
+      .then(data => {
+        if (response.ok) {
+          // Ocultar el formulario
+          form.style.display = 'none';
+
+          // Mostrar el mensaje de agradecimiento en el lugar del formulario
+          const messageContainer = document.createElement('div');
+          messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
+          messageContainer.innerHTML = `
+            <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
+            <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
+          `;
+
+          // Insertar el mensaje en el lugar del formulario
+          document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
+        } else {
+          alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
+        }
       })
-        .then(response => {
-          if (response.ok) {
-            // Ocultar el formulario
-            form.style.display = 'none';
-
-            // Mostrar el mensaje de agradecimiento en el lugar del formulario
-            const messageContainer = document.createElement('div');
-            messageContainer.classList.add('bg-green-100', 'p-6', 'rounded', 'text-center');
-            messageContainer.innerHTML = `
-              <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
-              <p class="text-gray-600 mt-2">Vas a recibir tu link de afiliado y tus QR vía email en las próximas horas.</p>
-            `;
-
-            // Insertar el mensaje en el lugar del formulario
-            document.querySelector('main').insertBefore(messageContainer, document.querySelector('main').firstChild);
-          } else {
-            alert("Hubo un problema al enviar el formulario. Por favor, intenta nuevamente.");
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          alert("Error al enviar el formulario.");
-        });
-    }
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Error al enviar el formulario.");
+      });
   });
 </script>
 
