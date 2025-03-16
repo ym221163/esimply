@@ -44,7 +44,7 @@
       </div>
       
       <div id="codigoPersonalizadoDiv" class="hidden space-y-2">
-        <input type="text" name="codigo_personalizado" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
+        <input type="text" name="codigo_personalizado" id="codigoPersonalizadoInput" placeholder="Código personalizado único" class="border border-gray-300 p-3 rounded w-full">
         <div class="p-2 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
           ¡Los códigos personalizados generan más conversión! Amortizalos con la <strong>primera venta</strong>.
         </div>
@@ -95,7 +95,7 @@
   const previewLink = document.getElementById("previewLink");
   const costInfo = document.getElementById("costInfo");
   const baseURL = "https://www.esimplyglobal.com/";
-  const customInput = document.querySelector('input[name="codigo_personalizado"]');
+  const customInput = document.getElementById('codigoPersonalizadoInput');
   const submitButton = document.getElementById("submitButton");
 
   function actualizarPreview() {
@@ -125,6 +125,8 @@
       actualizarPreview();
     });
   });
+
+  customInput.addEventListener('input', actualizarPreview); // Escuchar cambios en el input de código personalizado
 
   document.getElementById("registroForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Evitar el envío automático del formulario
