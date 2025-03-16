@@ -88,7 +88,7 @@
             Ingreso por Ventas: Cada compra realizada por un huésped a través de tu link o QR te generará ingresos.
           </p>
           <p class="ml-4">
-            Resumen de Ventas: Cada 15 días recibirás un resumen detallado de tus ventas y los comprobantes de pago.
+            Resumen de Ventas: Cada 15 días vas a recibir un resumen detallado de tus ventas y los comprobantes de pago.
           </p>
         </li>
         <li>
@@ -170,12 +170,12 @@
         const codigoAleatorio = generarCodigoAleatorio();
         previewLink.textContent = baseURL + codigoAleatorio;
         costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-        submitButton.textContent = "Regístrate sin costo";
+        submitButton.textContent = "Registrate sin costo";
       } else if (selectedTipo.value === "personalizado") {
         const valor = customInput.value.trim();
         previewLink.textContent = baseURL + (valor || "[tu_codigo]");
         costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-        submitButton.textContent = "Regístrate y pagá $5000 ARS";
+        submitButton.textContent = "Registrate y pagá $5000 ARS";
         // Si hay texto, verifica disponibilidad
         if (valor) {
           checkCodeAvailability();
@@ -222,7 +222,7 @@
       document.getElementById("link_afiliado").value = baseURL + codigoPersonalizado;
       
       // Redirigir a MercadoPago para el pago
-      window.location.href = "https://mpago.la/1mpya7W";
+      window.location.href = "https://mpago.la/1zvdn4M";
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
