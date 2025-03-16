@@ -19,7 +19,8 @@
       <h2 class="text-xl font-semibold text-gray-800">¡Gracias por registrarte!</h2>
       <p class="text-gray-600 mt-2">En unas horas vas a recibir por email tu link de afiliado y tus QR.</p>
     </div>
-    <h2 class="text-2xl font-bold text-center mb-4">Unite a nuestro programa de Afiliados!</h2>
+    <!-- Título con id agregado -->
+    <h2 id="tituloAfiliados" class="text-2xl font-bold text-center mb-4">Unite a nuestro programa de Afiliados!</h2>
     <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzTgj1xNf7ltZNIO4_vGt2u7dRy4c2BBb5YGAfNf58wt4yXOti79CrZb_pVP8pCY2I6/exec" method="post" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="nombre" placeholder="Nombre" required class="border border-gray-300 p-3 rounded w-full">
@@ -154,23 +155,21 @@
     });
   });
 
-  customInput.addEventListener('input', actualizarPreview); // Escuchar cambios en el input de código personalizado
+  customInput.addEventListener('input', actualizarPreview);
 
   document.getElementById("registroForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evitar el envío automático del formulario
+    event.preventDefault();
     const form = event.target;
     const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked').value;
 
-    let codigo = "";
     if (selectedTipo === "personalizado") {
-      codigo = form.codigo_personalizado.value.trim();
+      const codigo = form.codigo_personalizado.value.trim();
       document.getElementById("link_afiliado").value = baseURL + codigo;
     } else if (selectedTipo === "gratuito") {
       const codigoAleatorio = generarCodigoAleatorio();
       document.getElementById("link_afiliado").value = baseURL + codigoAleatorio;
     }
 
-    // Enviar datos al Google Sheets
     fetch(form.action, {
       method: form.method,
       body: new FormData(form)
@@ -179,11 +178,15 @@
       .then(data => {
         if (selectedTipo === "personalizado") {
           // Redirigir a MercadoPago para el pago
-          window.location.href = "https://mpago.la/1zvdn4M"; // Redirección a MercadoPago
+          window.location.href = "https://mpago.la/1zvdn4M";
         } else {
-          // Ocultar el formulario y mostrar mensaje de agradecimiento
+          // Ocultar el formulario y el título, mostrar el mensaje y dejar un espacio
           form.style.display = 'none';
-          document.getElementById("messageContainer").classList.remove("hidden");
+          document.getElementById("tituloAfiliados").style.display = 'none';
+          const messageContainer = document.getElementById("messageContainer");
+          messageContainer.classList.remove("hidden");
+          // Agregar margen inferior para separar del resto de la sección
+          messageContainer.style.marginBottom = "2rem";
         }
       })
       .catch(error => {
