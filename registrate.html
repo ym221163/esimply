@@ -114,6 +114,97 @@
   </main>
   
 <script>
+  // Función para generar un código aleatorio de 9 caracteres
+  function generarCodigoAleatorio() {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let codigo = '';
+    for (let i = 0; i < 9; i++) {
+      codigo += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return codigo;
+  }
+
+  const radios = document.getElementsByName("tipo_codigo");
+  const codigoPersonalizadoDiv = document.getElementById("codigoPersonalizadoDiv");
+  const previewLink = document.getElementById("previewLink");
+  const costInfo = document.getElementById("costInfo");
+  const baseURL = "https://www.esimplyglobal.com/";
+  const customInput = document.querySelector('input[name="codigo_personalizado"]');
+  const submitButton = document.getElementById("submitButton");
+  const availabilityMessage = document.getElementById("availabilityMessage");
+
+  // Función para verificar la disponibilidad del código personalizado y retornar una Promesa
+  function checkCodeAvailability() {
+    const code = customInput.value.trim();
+    if (!code) {
+      availabilityMessage.textContent = "";
+      return Promise.resolve({ disponible: false });
+    }
+    const url = "https://script.google.com/macros/s/AKfycbwTuS1fkuDQ9YVojH5m1ZT0slPuTGCC4Ji-ybU93xnkf4xZW6ewmmUZDEM33xYfyXey/exec?action=check&codigo=" + encodeURIComponent(code);
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.disponible) {
+          availabilityMessage.textContent = "Código disponible";
+          availabilityMessage.classList.remove("text-red-600");
+          availabilityMessage.classList.add("text-green-600");
+        } else {
+          availabilityMessage.textContent = "Código no disponible";
+          availabilityMessage.classList.remove("text-green-600");
+          availabilityMessage.classList.add("text-red-600");
+        }
+        return data;
+      })
+      .catch(error => {
+        console.error("Error verificando disponibilidad:", error);
+        availabilityMessage.textContent = "";
+        return { disponible: false };
+      });
+  }
+
+  // Actualiza la previsualización del link y el texto del botón según la opción seleccionada
+  function actualizarPreview() {
+    const selectedTipo = document.querySelector('input[name="tipo_codigo"]:checked');
+    if (selectedTipo) {
+      if (selectedTipo.value === "gratuito") {
+        const codigoAleatorio = generarCodigoAleatorio();
+        previewLink.textContent = baseURL + codigoAleatorio;
+        costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
+        submitButton.textContent = "Regístrate sin costo";
+      } else if (selectedTipo.value === "personalizado") {
+        const valor = customInput.value.trim();
+        previewLink.textContent = baseURL + (valor || "[tu_codigo]");
+        costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
+        submitButton.textContent = "Regístrate y pagá $5000 ARS";
+        // Si hay texto, verifica disponibilidad
+        if (valor) {
+          checkCodeAvailability();
+        } else {
+          availabilityMessage.textContent = "";
+        }
+      }
+    }
+  }
+
+  radios.forEach(radio => {
+    radio.addEventListener("change", function() {
+      if (this.value === "personalizado") {
+        codigoPersonalizadoDiv.classList.remove("hidden");
+      } else {
+        codigoPersonalizadoDiv.classList.add("hidden");
+      }
+      actualizarPreview();
+    });
+  });
+
+  if(customInput) {
+    customInput.addEventListener("input", function() {
+      actualizarPreview();
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = setTimeout(checkCodeAvailability, 500);
+    });
+  }
+
   // Manejo del envío del formulario de manera asíncrona
   document.getElementById("registroForm").addEventListener("submit", async function(event) {
     event.preventDefault();
@@ -169,5 +260,6 @@
     }
   });
 </script>
+
 </body>
 </html>
