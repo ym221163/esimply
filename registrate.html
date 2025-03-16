@@ -16,7 +16,7 @@
   
   <main class="max-w-2xl mx-auto p-4">
     <h2 class="text-xl font-bold mb-4 text-center">¡Unite a nuestro programa de afiliados!</h2>
-    <form id="registroForm" action="https://script.google.com/macros/s/AKfycbw4Jkd6k-JxXaMQs9FYGFDGOCN_ZXR9e5ak6zs7cDcbRlmUnMCE55TzVVSOvg1yCw_C/exec" method="post" class="space-y-4">
+    <form id="registroForm" action="https://script.google.com/macros/s/AKfycbzTgj1xNf7ltZNIO4_vGt2u7dRy4c2BBb5YGAfNf58wt4yXOti79CrZb_pVP8pCY2I6/exec" method="post" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="nombre" placeholder="Nombre" required class="border border-gray-300 p-3 rounded w-full">
         <input type="text" name="apellido" placeholder="Apellido" required class="border border-gray-300 p-3 rounded w-full">
@@ -92,12 +92,12 @@
         const codigoAleatorio = generarCodigoAleatorio();
         previewLink.textContent = baseURL + codigoAleatorio;
         costInfo.textContent = "El código gratuito se genera automáticamente sin costo.";
-        submitButton.textContent = "Regístrate sin costo";
+        submitButton.textContent = "Registrate sin costo";
       } else if (selectedTipo.value === "personalizado") {
         const valor = customInput.value.trim();
         previewLink.textContent = baseURL + (valor || "[tu_codigo]");
         costInfo.textContent = "El código personalizado tiene un costo único de $5000 ARS.";
-        submitButton.textContent = "Regístrate y pagá $5000 ARS";
+        submitButton.textContent = "Registrate y pagá $5000 ARS";
       }
     }
   }
