@@ -59,7 +59,10 @@
       
       <!-- Campo oculto para guardar el link generado -->
       <input type="hidden" name="link_afiliado" id="link_afiliado">
-      
+      <div id="errorMessage" class="hidden bg-red-100 text-red-600 p-4 rounded mt-4 text-center">
+        El código de afiliado no está disponible. Por favor, elige otro código personalizado.
+      </div>
+
       <!-- Botón de envío dinámico -->
       <button id="submitButton" type="submit" class="w-full bg-[#d62324] hover:bg-[#b71c1c] text-white font-bold py-3 rounded transition duration-300">
         Envíar Registro
@@ -132,12 +135,14 @@
   const customInput = document.querySelector('input[name="codigo_personalizado"]');
   const submitButton = document.getElementById("submitButton");
   const availabilityMessage = document.getElementById("availabilityMessage");
+  const errorMessage = document.getElementById("errorMessage"); // El contenedor del error
 
   // Función para verificar la disponibilidad del código personalizado y retornar una Promesa
   function checkCodeAvailability() {
     const code = customInput.value.trim();
     if (!code) {
       availabilityMessage.textContent = "";
+      errorMessage.classList.add("hidden"); // Ocultar el error si no hay código
       return Promise.resolve({ disponible: false });
     }
     const url = "https://script.google.com/macros/s/AKfycbwTuS1fkuDQ9YVojH5m1ZT0slPuTGCC4Ji-ybU93xnkf4xZW6ewmmUZDEM33xYfyXey/exec?action=check&codigo=" + encodeURIComponent(code);
@@ -148,16 +153,19 @@
           availabilityMessage.textContent = "Código disponible";
           availabilityMessage.classList.remove("text-red-600");
           availabilityMessage.classList.add("text-green-600");
+          errorMessage.classList.add("hidden"); // Ocultar el mensaje de error si está disponible
         } else {
           availabilityMessage.textContent = "Código no disponible";
           availabilityMessage.classList.remove("text-green-600");
           availabilityMessage.classList.add("text-red-600");
+          errorMessage.classList.remove("hidden"); // Mostrar el error si el código no está disponible
         }
         return data;
       })
       .catch(error => {
         console.error("Error verificando disponibilidad:", error);
         availabilityMessage.textContent = "";
+        errorMessage.classList.add("hidden"); // Ocultar el error en caso de error
         return { disponible: false };
       });
   }
@@ -181,6 +189,7 @@
           checkCodeAvailability();
         } else {
           availabilityMessage.textContent = "";
+          errorMessage.classList.add("hidden"); // Ocultar el error si no hay texto
         }
       }
     }
@@ -215,8 +224,8 @@
       // Verificar disponibilidad antes de enviar
       const result = await checkCodeAvailability();
       if (!result.disponible) {
-        // Mostrar mensaje de error si el código ya está tomado
-        alert("Código de afiliado no disponible. Por favor, elige otro código personalizado.");
+        // No redirigir ni enviar formulario si el código no está disponible
+        errorMessage.classList.remove("hidden"); // Mostrar mensaje de error
         return; // Evita el envío
       }
       const codigoPersonalizado = form.codigo_personalizado.value.trim();
